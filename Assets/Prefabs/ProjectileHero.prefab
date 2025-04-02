@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5072272161904288881}
   - component: {fileID: 4499156522444079164}
   - component: {fileID: 7029157105046797961}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ProjectileHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 1, z: 0.25}
+  m_LocalScale: {x: 0.25, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -134,10 +134,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4499156522444079164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0de8de72b29d045a1b07cde4c7201c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  rigid: {fileID: 0}
+  _type: 0
 --- !u!114 &7029157105046797961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundsType: 2
   radius: 1
-  keepOnScreen: 1
+  keepOnScreen: 0
   screenLocs: 0
   camWidth: 0
   camHeight: 0

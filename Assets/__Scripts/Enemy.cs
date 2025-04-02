@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Security;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
@@ -11,7 +12,9 @@ public class Enemy : MonoBehaviour
     public float fireRate = 0.3f;
     public float health = 10;
     public int score = 100;
+    public float powerUpDropChance = 1f;
 
+    protected bool calledShipDestroyed = false;
     protected BoundsCheck bndCheck;
 
     void Awake() {
@@ -43,13 +46,24 @@ public class Enemy : MonoBehaviour
         pos = tempPos;
     }
 
-    void OnTriggerEnter(Collider coll) {
+    void OnCollisionEnter(Collision coll) {
         GameObject otherGO = coll.gameObject;
-        if (otherGO.GetComponent<ProjectileHero>() != null) {
+        
+        ProjectileHero p = otherGO.GetComponent<ProjectileHero>();
+        if (p != null) {
+            if (bndCheck.isOnScreen) {
+                health -= Main.GET_WEAPON_DEFINITION(p.type).damageOnHit;
+                if (health <= 0) {
+                    if (!calledShipDestroyed) {
+                        calledShipDestroyed = true;
+                        Main.SHIP_DESTROYED(this);
+                    }
+                    Destroy(this.gameObject);
+                }
+            }
             Destroy(otherGO);
-            Destroy(gameObject);
         } else {
-            Debug.Log("Enemy hit by non-ProjectileHero: " + otherGO.name);
+            print("Enemy hit by non-ProjectileHero: " + otherGO.name);
         }
     }
 }
